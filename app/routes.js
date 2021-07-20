@@ -1,3 +1,4 @@
+// load the todo model
 const Todo = require('./models/todo')
 
 function getTodos(res) {
@@ -7,11 +8,14 @@ function getTodos(res) {
   })
 }
 
+// expose the routes to our app with module.exports
 module.exports = (app) => {
+  // get all todos
   app.get('/api/todos', (req, res) => {
     getTodos(res)
   })
 
+  // create todo, send back all todos after creation
   app.post('/api/todos', (req, res) => {
     Todo.create({
       text: req.body.text,
@@ -22,6 +26,7 @@ module.exports = (app) => {
     })
   })
 
+  // delete a todo
   app.delete('/api/todos/:todo_id', (req, res) => {
     Todo.remove({
       _id: req.params.todo_id
@@ -32,6 +37,6 @@ module.exports = (app) => {
   })
 
   app.get('*', (req, res) => {
-    res.sendFile(require('path').resolve('./public/index.html'))
+    res.sendFile(require('path').resolve('./public/index.html')) // load the single view file
   })
 }
