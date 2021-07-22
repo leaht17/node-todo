@@ -12,7 +12,7 @@ const app = express()                     // create app with express
 const port = process.env.PORT || 8080
 
 // configuration
-mongoose.connect(dbConfig.connection)     // connect to mongodb database
+mongoose.connect(process.env.CUSTOMCONNSTR_MyConnectionString || dbConfig.connection)     // connect to mongodb database
 
 db.on('error', (err) => {
   console.error(err.message)
